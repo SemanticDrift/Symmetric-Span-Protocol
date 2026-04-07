@@ -103,7 +103,13 @@ The engine runs in any browser. No dependencies.
 
 ---
 
+## Live Interactive Engine
+
+The SSP Logic Engine runs live here:  
+👉 [https://semanticdrift.github.io/Symmetric-Span-Protocol/](https://semanticdrift.github.io/Symmetric-Span-Protocol/)
 ## Repository Contents
+
+---
 
 | File | Description |
 |------|-------------|
