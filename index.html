@@ -1,371 +1,355 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2113.65">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <title>SSP LOGIC ENGINE</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: sans-serif;
+            display: flex;
+            height: 100vh;
+            background: #d4d4d4;
+            color: #222;
+        }
+        #left-pane {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #bbb;
+            padding: 20px;
+            background: #d4d4d4;
+            position: relative;
+        }
+        #right-pane {
+            flex: 1;
+            padding: 28px 22px;
+            background: #c8c8c8;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+        }
+        h1 {
+            font-size: 15px;
+            letter-spacing: 3px;
+            color: #111;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #999;
+            background: #111;
+            max-width: 100%;
+        }
+        .delta-display {
+            margin-top: 16px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #111;
+            text-align: center;
+            letter-spacing: 1px;
+            min-height: 30px;
+        }
+        .triangle-name {
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 6px;
+            letter-spacing: 2px;
+            min-height: 22px;
+        }
+        .green  { color: #1a7a1a; }
+        .orange { color: #bb5500; }
+        .blue   { color: #1144bb; }
+        .red    { color: #cc0000; }
+
+        h2 {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        label {
+            font-size: 11px;
+            color: #555;
+            margin-top: 8px;
+            display: block;
+        }
+        input {
+            padding: 9px 10px;
+            background: #ebebeb;
+            border: 1px solid #aaa;
+            color: #111;
+            font-size: 15px;
+            border-radius: 3px;
+            width: 100%;
+            -moz-appearance: textfield;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        input:focus { outline: none; border-color: #888; }
+
+        .logic-key {
+            margin-top: 14px;
+            border-top: 1px solid #aaa;
+            padding-top: 12px;
+            font-size: 12px;
+            color: #444;
+            line-height: 2.1;
+        }
+        .logic-key .key-title {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .watermark {
+            position: absolute;
+            bottom: 12px;
+            left: 16px;
+            font-size: 11px;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="es"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;SSP LOGIC ENGINE&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>* { box-sizing: border-box; margin: 0; padding: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 100vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #d4d4d4;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #222;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#left-pane {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex: 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-right: 1px solid #bbb;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #d4d4d4;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#right-pane {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 28px 22px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #c8c8c8;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow-y: auto;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 3px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #111;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>canvas {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #999;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #111;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.delta-display {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 22px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #111;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 1px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>min-height: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.triangle-name {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>min-height: 22px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.green<span class="Apple-converted-space">  </span>{ color: #1a7a1a; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.orange { color: #bb5500; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.blue <span class="Apple-converted-space">  </span>{ color: #1144bb; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.red<span class="Apple-converted-space">    </span>{ color: #cc0000; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>label {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #555;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 9px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #ebebeb;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #aaa;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #111;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 3px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-moz-appearance: textfield;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input::-webkit-outer-spin-button,</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input::-webkit-inner-spin-button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-appearance: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input:focus { outline: none; border-color: #888; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.logic-key {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-top: 1px solid #aaa;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-top: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #444;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 2.1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.logic-key .key-title {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 1px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.watermark {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>bottom: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #aaa;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 1px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div id="left-pane"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;SSP LOGIC ENGINE&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;canvas id="sspCanvas" width="520" height="340"&gt;&lt;/canvas&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="delta-display"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&amp;Delta; = &lt;span id="deltaVal"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="triangle-name" id="typeName"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="watermark"&gt;SemanticShift.net&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div id="right-pane"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;VARIABLES&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;a = Anchor&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="number" id="input_a" step="1" min="1" placeholder="a"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;b = Centroid&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="number" id="input_b" step="1" min="1" placeholder="b"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;c = Span&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="number" id="input_c" step="1" min="1" placeholder="c"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;d = Boundary&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="number" id="input_d" step="1" min="1" placeholder="d"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="logic-key"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="key-title"&gt;Logic Key&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>a &amp;lt; d&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>a = b - (c / 2)&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>b = (a + d) / 2&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>c = d - a&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>d = b + (c / 2)</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const fieldIds = ['input_a', 'input_b', 'input_c', 'input_d'];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>fieldIds.forEach(id =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById(id).addEventListener('input', solveAndDraw);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function fmt(n) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (n === null || n === undefined || isNaN(n)) return '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (Number.isInteger(n)) return String(n);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const r = parseFloat(n.toFixed(4));</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return Number.isInteger(r) ? String(r) : r.toString();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function setDerived(id, val) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById(id).value = fmt(val);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function getRaw(id) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const v = parseFloat(document.getElementById(id).value);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return isNaN(v) ? null : v;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function showError() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('deltaVal').innerHTML =</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'&lt;span class="red"&gt;ERROR&lt;/span&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('typeName').innerText = '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>clearCanvas();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function clearCanvas() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const ctx = document.getElementById('sspCanvas').getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.clearRect(0, 0, 520, 340);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function clearDisplay() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('deltaVal').innerText = '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('typeName').innerText = '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>clearCanvas();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function isValid(a, b, c, d) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (a &lt;= 0 || b &lt;= 0 || c &lt;= 0 || d &lt;= 0) return false;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (a &gt;= d) return false;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return true;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function solveAndDraw() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let a = getRaw('input_a');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let b = getRaw('input_b');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let c = getRaw('input_c');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let d = getRaw('input_d');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const filled = [a,b,c,d].filter(v =&gt; v !== null).length;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (filled &lt; 2) { clearDisplay(); return; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Derive from any valid pair — a,d is primary</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (a !== null &amp;&amp; d !== null) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>b = (a + d) / 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>c = d - a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_b', b);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_c', c);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else if (b !== null &amp;&amp; c !== null) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>a = b - c / 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>d = b + c / 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_a', a);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_d', d);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else if (a !== null &amp;&amp; b !== null) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>d = 2 * b - a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>c = d - a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_d', d);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_c', c);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else if (a !== null &amp;&amp; c !== null) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>d = a + c;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>b = (a + d) / 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_d', d);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_b', b);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else if (c !== null &amp;&amp; d !== null) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>a = d - c;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>b = (a + d) / 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_a', a);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_b', b);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else if (b !== null &amp;&amp; d !== null) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>a = 2 * b - d;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>c = d - a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_a', a);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setDerived('input_c', c);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>clearDisplay();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (!isValid(a, b, c, d)) { showError(); return; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const delta = b*b + c*c - d*d;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const deltaEl = document.getElementById('deltaVal');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const typeEl = document.getElementById('typeName');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>deltaEl.innerText = fmt(delta);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>typeEl.className = 'triangle-name';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const isLocked = Math.abs(delta) &lt; 0.001;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const isObtuse = delta &lt; -0.001;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (isLocked) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>typeEl.innerText = 'RECTANGULO';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>typeEl.classList.add('green');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else if (isObtuse) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>typeEl.innerText = 'OBTUSANGULO';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>typeEl.classList.add('orange');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>typeEl.innerText = 'ACUTANGULO';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>typeEl.classList.add('blue');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>drawTriangle(b, c, d, delta, isLocked, isObtuse);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function drawTriangle(b, c, d, delta, isLocked, isObtuse) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const canvas = document.getElementById('sspCanvas');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const ctx = canvas.getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const W = canvas.width;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const H = canvas.height;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.clearRect(0, 0, W, H);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Angle at vertex A (left base) between sides b and c, opposite d</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const cosA = (b*b + c*c - d*d) / (2*b*c);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const sinA = Math.sqrt(Math.max(0, 1 - cosA*cosA));</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (sinA &lt; 0.0001) return;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const margin = 60;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const maxW = W - margin * 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const maxH = H - margin - 40;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const triH = b * sinA;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const scale = Math.min(maxW / c, maxH / triH, 45);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const baseLen = c * scale;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const xA = (W - baseLen) / 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const xD = xA + baseLen;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const baseY = H - margin;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Apex using angle at A</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const apexX = xA + b * cosA * scale;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const apexY = baseY - b * sinA * scale;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const color = isLocked ? '#1a7a1a' : isObtuse ? '#bb5500' : '#1144bb';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Fill</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.beginPath();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.moveTo(xA, baseY);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.lineTo(xD, baseY);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.lineTo(apexX, apexY);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.closePath();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.fillStyle = color + '25';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.fill();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Stroke</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.beginPath();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.moveTo(xA, baseY);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.lineTo(xD, baseY);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.lineTo(apexX, apexY);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.closePath();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.strokeStyle = color;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.lineWidth = 2.5;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.stroke();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Right angle box at the base left corner (xA, baseY)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// This is where the 90 degree angle is for the 3-4-5 triangle</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (isLocked) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const sz = 13;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.beginPath();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.moveTo(xA + sz, baseY);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.lineTo(xA + sz, baseY - sz);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.lineTo(xA, baseY - sz);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.strokeStyle = '#1a7a1a';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.lineWidth = 1.5;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.stroke();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Vertex labels</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.fillStyle = '#888';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.font = '12px sans-serif';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.fillText('a', xA - 14, baseY + 5);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.fillText('d', xD + 5, baseY + 5);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Side labels</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.fillStyle = color;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.font = 'bold 11px sans-serif';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.fillText('c = ' + fmt(c), (xA+xD)/2 - 18, baseY + 18);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.fillText('b = ' + fmt(b), (xA+apexX)/2 - 32, (baseY+apexY)/2 - 2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ctx.fillText('d = ' + fmt(d), (xD+apexX)/2 + 4, (baseY+apexY)/2 - 2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<div id="left-pane">
+    <h1>SSP LOGIC ENGINE</h1>
+    <canvas id="sspCanvas" width="520" height="340"></canvas>
+    <div class="delta-display">
+        &Delta; = <span id="deltaVal"></span>
+    </div>
+    <div class="triangle-name" id="typeName"></div>
+    <div class="watermark">SemanticShift.net</div>
+</div>
+
+<div id="right-pane">
+    <h2>VARIABLES</h2>
+
+    <label>a = Anchor</label>
+    <input type="number" id="input_a" step="1" min="1" placeholder="a">
+
+    <label>b = Centroid</label>
+    <input type="number" id="input_b" step="1" min="1" placeholder="b">
+
+    <label>c = Span</label>
+    <input type="number" id="input_c" step="1" min="1" placeholder="c">
+
+    <label>d = Boundary</label>
+    <input type="number" id="input_d" step="1" min="1" placeholder="d">
+
+    <div class="logic-key">
+        <div class="key-title">Logic Key</div>
+        a &lt; d<br>
+        a = b - (c / 2)<br>
+        b = (a + d) / 2<br>
+        c = d - a<br>
+        d = b + (c / 2)
+    </div>
+</div>
+
+<script>
+    const fieldIds = ['input_a', 'input_b', 'input_c', 'input_d'];
+
+    fieldIds.forEach(id => {
+        document.getElementById(id).addEventListener('input', solveAndDraw);
+    });
+
+    function fmt(n) {
+        if (n === null || n === undefined || isNaN(n)) return '';
+        if (Number.isInteger(n)) return String(n);
+        const r = parseFloat(n.toFixed(4));
+        return Number.isInteger(r) ? String(r) : r.toString();
+    }
+
+    function setDerived(id, val) {
+        document.getElementById(id).value = fmt(val);
+    }
+
+    function getRaw(id) {
+        const v = parseFloat(document.getElementById(id).value);
+        return isNaN(v) ? null : v;
+    }
+
+    function showError() {
+        document.getElementById('deltaVal').innerHTML =
+            '<span class="red">ERROR</span>';
+        document.getElementById('typeName').innerText = '';
+        clearCanvas();
+    }
+
+    function clearCanvas() {
+        const ctx = document.getElementById('sspCanvas').getContext('2d');
+        ctx.clearRect(0, 0, 520, 340);
+    }
+
+    function clearDisplay() {
+        document.getElementById('deltaVal').innerText = '';
+        document.getElementById('typeName').innerText = '';
+        clearCanvas();
+    }
+
+    function isValid(a, b, c, d) {
+        if (a <= 0 || b <= 0 || c <= 0 || d <= 0) return false;
+        if (a >= d) return false;
+        return true;
+    }
+
+    function solveAndDraw() {
+        let a = getRaw('input_a');
+        let b = getRaw('input_b');
+        let c = getRaw('input_c');
+        let d = getRaw('input_d');
+
+        const filled = [a,b,c,d].filter(v => v !== null).length;
+        if (filled < 2) { clearDisplay(); return; }
+
+        // Derive from any valid pair — a,d is primary
+        if (a !== null && d !== null) {
+            b = (a + d) / 2;
+            c = d - a;
+            setDerived('input_b', b);
+            setDerived('input_c', c);
+        } else if (b !== null && c !== null) {
+            a = b - c / 2;
+            d = b + c / 2;
+            setDerived('input_a', a);
+            setDerived('input_d', d);
+        } else if (a !== null && b !== null) {
+            d = 2 * b - a;
+            c = d - a;
+            setDerived('input_d', d);
+            setDerived('input_c', c);
+        } else if (a !== null && c !== null) {
+            d = a + c;
+            b = (a + d) / 2;
+            setDerived('input_d', d);
+            setDerived('input_b', b);
+        } else if (c !== null && d !== null) {
+            a = d - c;
+            b = (a + d) / 2;
+            setDerived('input_a', a);
+            setDerived('input_b', b);
+        } else if (b !== null && d !== null) {
+            a = 2 * b - d;
+            c = d - a;
+            setDerived('input_a', a);
+            setDerived('input_c', c);
+        } else {
+            clearDisplay();
+            return;
+        }
+
+        if (!isValid(a, b, c, d)) { showError(); return; }
+
+        const delta = b*b + c*c - d*d;
+        const deltaEl = document.getElementById('deltaVal');
+        const typeEl = document.getElementById('typeName');
+
+        deltaEl.innerText = fmt(delta);
+        typeEl.className = 'triangle-name';
+
+        const isLocked = Math.abs(delta) < 0.001;
+        const isObtuse = delta < -0.001;
+
+        if (isLocked) {
+            typeEl.innerText = 'RECTANGULO';
+            typeEl.classList.add('green');
+        } else if (isObtuse) {
+            typeEl.innerText = 'OBTUSANGULO';
+            typeEl.classList.add('orange');
+        } else {
+            typeEl.innerText = 'ACUTANGULO';
+            typeEl.classList.add('blue');
+        }
+
+        drawTriangle(b, c, d, delta, isLocked, isObtuse);
+    }
+
+    function drawTriangle(b, c, d, delta, isLocked, isObtuse) {
+        const canvas = document.getElementById('sspCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width;
+        const H = canvas.height;
+
+        ctx.clearRect(0, 0, W, H);
+
+        // Angle at vertex A (left base) between sides b and c, opposite d
+        const cosA = (b*b + c*c - d*d) / (2*b*c);
+        const sinA = Math.sqrt(Math.max(0, 1 - cosA*cosA));
+        if (sinA < 0.0001) return;
+
+        const margin = 60;
+        const maxW = W - margin * 2;
+        const maxH = H - margin - 40;
+        const triH = b * sinA;
+        const scale = Math.min(maxW / c, maxH / triH, 45);
+
+        const baseLen = c * scale;
+        const xA = (W - baseLen) / 2;
+        const xD = xA + baseLen;
+        const baseY = H - margin;
+
+        // Apex using angle at A
+        const apexX = xA + b * cosA * scale;
+        const apexY = baseY - b * sinA * scale;
+
+        const color = isLocked ? '#1a7a1a' : isObtuse ? '#bb5500' : '#1144bb';
+
+        // Fill
+        ctx.beginPath();
+        ctx.moveTo(xA, baseY);
+        ctx.lineTo(xD, baseY);
+        ctx.lineTo(apexX, apexY);
+        ctx.closePath();
+        ctx.fillStyle = color + '25';
+        ctx.fill();
+
+        // Stroke
+        ctx.beginPath();
+        ctx.moveTo(xA, baseY);
+        ctx.lineTo(xD, baseY);
+        ctx.lineTo(apexX, apexY);
+        ctx.closePath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // Right angle box at the base left corner (xA, baseY)
+        // This is where the 90 degree angle is for the 3-4-5 triangle
+        if (isLocked) {
+            const sz = 13;
+            ctx.beginPath();
+            ctx.moveTo(xA + sz, baseY);
+            ctx.lineTo(xA + sz, baseY - sz);
+            ctx.lineTo(xA, baseY - sz);
+            ctx.strokeStyle = '#1a7a1a';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+
+        // Vertex labels
+        ctx.fillStyle = '#888';
+        ctx.font = '12px sans-serif';
+        ctx.fillText('a', xA - 14, baseY + 5);
+        ctx.fillText('d', xD + 5, baseY + 5);
+
+        // Side labels
+        ctx.fillStyle = color;
+        ctx.font = 'bold 11px sans-serif';
+        ctx.fillText('c = ' + fmt(c), (xA+xD)/2 - 18, baseY + 18);
+        ctx.fillText('b = ' + fmt(b), (xA+apexX)/2 - 32, (baseY+apexY)/2 - 2);
+        ctx.fillText('d = ' + fmt(d), (xD+apexX)/2 + 4, (baseY+apexY)/2 - 2);
+    }
+</script>
+
 </body>
 </html>
