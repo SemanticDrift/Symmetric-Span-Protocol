@@ -1,12 +1,12 @@
-# The Symmetric Span Protocol (SSP)
-### Completing the Pythagorean Theorem
+# The Geometric Matrix
+## Completing the Pythagorean Theorem
 
 **Series:** Mathematical Foundations for Universal Systems
-**Author:** Carolina Johnson (CJ) 
+**Author:** Carolina Johnson (CJ)
 **Date:** April 2026
 **License:** CC BY 4.0, Attribution required
-**DOI:** https://doi.org/10.5281/zenodo.19447063
-**ORCID:** https://orcid.org/0009-0002-8819-3347
+**DOI:** [https://doi.org/10.5281/zenodo.19490969](https://doi.org/10.5281/zenodo.19490969)
+**ORCID:** [https://orcid.org/0009-0002-8819-3347](https://orcid.org/0009-0002-8819-3347)
 
 ---
 
@@ -22,11 +22,11 @@ The Pythagorean theorem a² + b² = c² is correct but incomplete. It tells you 
 
 Ancient builders used a 12-knot rope to produce a 3-4-5 right triangle. The standard theorem confirms it works. It does not explain why it must work.
 
-The Symmetric Span Protocol fills that gap.
+The Geometric Matrix fills that gap.
 
 ---
 
-## The Protocol
+## The Matrix
 
 For any anchor boundary [a, d] with a < d, define:
 
@@ -46,28 +46,28 @@ c = d - a
 d = b + (c / 2)
 ```
 
-Any one variable can be derived from any two others. The system is closed by arithmetic.
+Any one variable can be derived from any two others. The system is closed by arithmetic. The triangle defined by b, c, and d is not free-form — it exists within the boundary [a, d], and its proportions are a necessary consequence of the system rather than an independent selection.
 
 ---
 
 ## The Delta Constant
 
-For any triangle produced by the SSP:
+For any triangle produced by the Geometric Matrix:
 
 ```
 Δ = b² + c² - d²
   = (5a - d)(a - d) / 4
 ```
 
-Since a < d, the sign of Δ is determined by (5a - d):
+Since a < d, the sign of Δ is determined by (5a − d):
 
 | Condition | Δ | Triangle |
 |-----------|---|----------|
-| d = 5a | 0 | Right (Rectangulo) |
-| d < 5a | < 0 | Obtuse (Obtusangulo) |
-| d > 5a | > 0 | Acute (Acutangulo) |
+| d = 5a | 0 | Right |
+| d < 5a | < 0 | Obtuse |
+| d > 5a | > 0 | Acute |
 
-The standard Pythagorean theorem addresses only Δ = 0. The SSP extends it to all triangles.
+The standard Pythagorean theorem addresses only Δ = 0. The Geometric Matrix extends it to all triangles.
 
 ---
 
@@ -95,17 +95,14 @@ The Pythagorean theorem is not wrong. It is incomplete. This paper completes it.
 
 ---
 
-## The SSP Logic Engine
+## The Logic Engine
 
 An interactive tool is included in this repository. Enter any two of the four variables and the engine derives the remaining two, computes Δ, classifies the triangle, and renders the geometry in real time.
 
 The engine runs in any browser. No dependencies.
 
----
+### Live Interactive Engine
 
-## Live Interactive Engine
-
-The SSP Logic Engine runs live here:  
 👉 [https://semanticdrift.github.io/Symmetric-Span-Protocol/](https://semanticdrift.github.io/Symmetric-Span-Protocol/)
 
 ---
@@ -115,17 +112,17 @@ The SSP Logic Engine runs live here:
 | File | Description |
 |------|-------------|
 | `README.md` | This file |
-| `Symmetric Span Protocol.pdf` | Full paper with proofs and scaling law |
-| `SSP_Engine.html` | Interactive SSP Logic Engine |
+| `Geometric Metrix.pdf` | Full paper with proofs and scaling law |
+| `geometric_matrix_engine.html` | Interactive Logic Engine |
 
 ---
 
 ## Citation
 
 ```
-Johnson, C. (2026). The Symmetric Span Protocol: Completing the Pythagorean Theorem.
+Johnson, C. (2026). The Geometric Matrix: Completing the Pythagorean Theorem.
 Series: Mathematical Foundations for Universal Systems.
-SemanticShift. DOI: https://doi.org/10.5281/zenodo.19447063
+SemanticDrift. DOI: https://doi.org/10.5281/zenodo.19490969
 ```
 
 ---
@@ -134,5 +131,4 @@ SemanticShift. DOI: https://doi.org/10.5281/zenodo.19447063
 
 © 2026 Carolina Johnson (CJ)
 Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0)
-Attribution required. https://creativecommons.org/licenses/by/4.0/
-
+Attribution required. [https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/)
